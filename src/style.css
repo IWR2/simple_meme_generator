@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Set the default font */
+body {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+}
+
+/* Set the main padding of the main section */
+main {
+  padding: 36px;
+}
+
+/* Header Component */
+/* Make the header a flex box centerd in the middle and set its background
+color and font color. */
+.header {
+  display: flex;
+  align-items: center;
+  height: 65px;
+  background: #96acfb;
+  color: white;
+  padding: 20px;
+}
+
+/* Ensure the image fits the parent*/
+.header--image {
+  height: 100%;
+  margin-right: 6px;
+}
+
+.header--title {
+  font-size: 1.25rem;
+  margin-right: auto;
+}
+
+.header--project {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Tutorial Component */
+.bold {
+  font-weight: bold;
+}
+
+/* Form Component */
+/* Style grid to have 3 40px rows and evenly divide the columns with
+fraction units */
+.form {
+  display: grid;
+  grid-template: 40px 40px 40px / 1fr 1fr;
+  gap: 17px;
+  margin-bottom: 17px;
+}
+
+.form--input {
+  font-family: "Nunito", sans-serif;
+  border-radius: 5px;
+  border: 1px solid #d5d4d8;
+  text-indent: 5px;
+}
+
+/* Have both buttons span from the left screen to the right screen */
+.form--button {
+  grid-column: 1 / -1;
+  font-family: "Nunito", sans-serif;
+  border-radius: 5px;
+  background: #96acfb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form--reset {
+  grid-column: 1 / -1;
+  font-family: "Nunito", sans-serif;
+  border-radius: 5px;
+  background: #fb9696;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
