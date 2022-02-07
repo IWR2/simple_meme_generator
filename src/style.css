@@ -83,3 +83,8 @@ fraction units */
   border: none;
   cursor: pointer;
 }
+
+/* Meme component */
+.meme--image {
+  max-width: 100%;
+}
