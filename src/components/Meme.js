@@ -6,20 +6,18 @@ import memesData from "../memesData";
 export default function Meme() {
   /* Returns a 2 column and 3 row grid form. */
 
+  // Set the initial meme image to blank
+  const [memeImage, setMemeImage] = React.useState("");
+
   // display random image from memesData
   function getMemeImage() {
-    //console.log("Clicked");
     const memesArray = memesData.data.memes;
     // Generate random number for for the index in the memes array
     const randomNumber = Math.floor(Math.random() * memesArray.length);
-    // Test random number
-    //console.log(randomNumber);
-    // Get url with the random url
-    const url = memesArray[randomNumber].url;
-    // Test URL
-    console.log(url);
+    setMemeImage(memesArray[randomNumber].url);
   }
 
+  // Create a new meme image element when we click Get a new meme image
   return (
     <main>
       <div className="form">
@@ -44,6 +42,7 @@ export default function Meme() {
           Reset
         </button>
       </div>
+      <img src={memeImage} className="meme--image" alt="" />
     </main>
   );
 }
