@@ -13,18 +13,25 @@ export default function Meme() {
     randomImage: "",
   });
 
-  // Set the initial meme image to blank
-  const [memeImage, setMemeImage] = React.useState("");
+  // Initialize new state variable that defaults to the imported memesData array.
+  const [allMemeImages, setAllMemeImages] = React.useState(memesData);
 
   // display random image from memesData
   function getMemeImage() {
-    const memesArray = memesData.data.memes;
+    // Get the
+    const memesArray = allMemeImages.data.memes;
     // Generate random number for for the index in the memes array
     const randomNumber = Math.floor(Math.random() * memesArray.length);
-    setMemeImage(memesArray[randomNumber].url);
+    // Image URL string
+    const url = memesArray[randomNumber].url;
+    // Change only the randomImage url.
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      randomImage: url,
+    }));
   }
 
-  // Create a new meme image element when we click Get a new meme image
+  // Create a new randomImage image when we click Get a new meme image
   return (
     <main>
       <div className="form">
@@ -47,7 +54,7 @@ export default function Meme() {
           Reset
         </button>
       </div>
-      <img src={memeImage} className="meme--image" alt="" />
+      <img src={meme.randomImage} className="meme--image" alt="" />
     </main>
   );
 }
