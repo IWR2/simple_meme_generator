@@ -26,19 +26,17 @@ export default function Meme() {
           placeholder="Top text"
           className="form--input"
           name="topText"
-          value="Top Text"
         />
         <input
           type="text"
           placeholder="Bottom text"
           className="form--input"
           name="bottomText"
-          value="Bottom Text"
         />
         <button className="form--button" type="button" onClick={getMemeImage}>
           Get a new meme image
         </button>
-        <button className="form--reset" type="button" onClick="">
+        <button className="form--reset" type="button">
           Reset
         </button>
       </div>
