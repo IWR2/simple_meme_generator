@@ -6,6 +6,13 @@ import memesData from "../memesData";
 export default function Meme() {
   /* Returns a 2 column and 3 row grid form. */
 
+  // Create a meme object for the topText, bottomText, and URL.
+  const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    randomImage: "",
+  });
+
   // Set the initial meme image to blank
   const [memeImage, setMemeImage] = React.useState("");
 
