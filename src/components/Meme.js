@@ -16,7 +16,9 @@ export default function Meme() {
   // Initialize new state variable that defaults to the imported memesData array.
   const [allMemeImages, setAllMemeImages] = React.useState(memesData);
 
-  // display random image from memesData
+  /**
+   * Changes the meme randomImage prop source to a random image.
+   */
   function getMemeImage() {
     // Get the
     const memesArray = allMemeImages.data.memes;
@@ -28,6 +30,18 @@ export default function Meme() {
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
+    }));
+  }
+
+  /**
+   * Resets the topText and bottomText to an empty string when the user
+   * presses the Reset button.
+   */
+  function resetText() {
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      topText: "",
+      bottomText: "",
     }));
   }
 
@@ -50,7 +64,7 @@ export default function Meme() {
         <button className="form--button" type="button" onClick={getMemeImage}>
           Get a new meme image
         </button>
-        <button className="form--reset" type="button">
+        <button className="form--reset" type="button" onClick={resetText}>
           Reset
         </button>
       </div>
