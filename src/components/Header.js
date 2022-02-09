@@ -1,9 +1,10 @@
 import React from "react";
 
+/**
+ * Renders the header with the logo and title.
+ * @returns
+ */
 export default function Header() {
-  /**
-   * Renders the header with the logo and Title
-   */
   return (
     <header className="header">
       <img

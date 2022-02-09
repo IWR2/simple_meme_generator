@@ -3,6 +3,10 @@ import React from "react";
 // Get local sample meme data
 import memesData from "../memesData";
 
+/**
+ * Renders the text inputs, buttons, and random meme image.
+ * @returns None
+ */
 export default function Meme() {
   /* Returns a 2 column and 3 row grid form. */
 

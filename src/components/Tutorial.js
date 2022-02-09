@@ -1,9 +1,10 @@
 import React from "react";
 
+/**
+ * Renders the tutorial below the meme section.
+ * @returns None
+ */
 export default function Tutorial() {
-  /**
-   * Renders the header with the logo and Title
-   */
   return (
     <main>
       <h2 className="title--tutorial">How to make a meme</h2>
