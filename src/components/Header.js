@@ -13,7 +13,6 @@ export default function Header() {
         alt="Surprised Pika Face"
       />
       <h2 className="header--title">Meme Generator</h2>
-      <h4 className="header--project">By Team Amazable</h4>
     </header>
   );
 }
