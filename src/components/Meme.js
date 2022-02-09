@@ -25,12 +25,15 @@ export default function Meme() {
    * data to the allMemes state.
    */
   useEffect(function () {
-    // Fetch the response and parse it into javascript,
+    // Fetch the response and parse it into javascript, and set that object
+    // into the meme array.
     fetch("https://api.imgflip.com/get_memes")
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setAllMemes(data.data.memes));
   }, []);
 
+  // Check if we got the meme urls array
+  console.log(allMemes);
   /**
    * Changes the meme randomImage prop source to a random image.
    */
