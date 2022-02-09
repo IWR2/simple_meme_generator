@@ -19,6 +19,8 @@ export default function Meme() {
    * Makes an API call to https://api.imgflip.com/get_memes.
    * When the data comes in, it saves the memes array part of that
    * data to the allMemes state.
+   * Source:
+   * https://imgflip.com/api
    */
   useEffect(function () {
     // Fetch the response and parse it into javascript, and set that object
@@ -72,6 +74,7 @@ export default function Meme() {
   }
 
   // Create a new randomImage image when we click Get a new meme image
+  // Only display the text if there's a meme image.
   return (
     <main>
       <div className="form">
@@ -98,11 +101,15 @@ export default function Meme() {
           Reset
         </button>
       </div>
-      <div className="meme">
-        <img src={meme.randomImage} className="meme--image" alt="" />
-        <h2 className="meme--text top">{meme.topText}</h2>
-        <h2 className="meme--text bottom">{meme.bottomText}</h2>
-      </div>
+      {meme.randomImage ? (
+        <div className="meme">
+          <img src={meme.randomImage} className="meme--image" alt="" />
+          <h2 className="meme--text top">{meme.topText}</h2>
+          <h2 className="meme--text bottom">{meme.bottomText}</h2>
+        </div>
+      ) : (
+        <></>
+      )}
     </main>
   );
 }
