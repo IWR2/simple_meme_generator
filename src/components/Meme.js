@@ -8,13 +8,11 @@ import memesData from "../memesData";
  * @returns None
  */
 export default function Meme() {
-  /* Returns a 2 column and 3 row grid form. */
-
   // Create a meme object for the topText, bottomText, and URL.
   const [meme, setMeme] = React.useState({
     topText: "",
     bottomText: "",
-    randomImage: "",
+    randomImage: "https://i.imgflip.com/2kbn1e.jpg",
   });
 
   // Initialize new state variable that defaults to the imported memesData array.
@@ -58,12 +56,16 @@ export default function Meme() {
           placeholder="Top text"
           className="form--input"
           name="topText"
+          value={meme.topText}
+          onChange={handleChange}
         />
         <input
           type="text"
           placeholder="Bottom text"
           className="form--input"
           name="bottomText"
+          value={meme.bottomText}
+          onChange={handleChange}
         />
         <button className="form--button" type="button" onClick={getMemeImage}>
           Get a new meme image
@@ -72,7 +74,11 @@ export default function Meme() {
           Reset
         </button>
       </div>
-      <img src={meme.randomImage} className="meme--image" alt="" />
+      <div className="meme">
+        <img src={meme.randomImage} className="meme--image" alt="" />
+        <h2 className="meme--text top">Top Meme</h2>
+        <h2 className="meme--text bottom">Bottom Meme</h2>
+      </div>
     </main>
   );
 }
