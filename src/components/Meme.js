@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Get local sample meme data
 import memesData from "../memesData";
@@ -16,7 +16,20 @@ export default function Meme() {
   });
 
   // Initialize new state variable that defaults to the imported memesData array.
+  //const [allMemes, setAllMemes] = React.useState(memesData);
   const [allMemes, setAllMemes] = React.useState(memesData);
+
+  /**
+   * Makes an API call to https://api.imgflip.com/get_memes.
+   * When the data comes in, it saves the memes array part of that
+   * data to the allMemes state.
+   */
+  useEffect(function () {
+    // Fetch the response and parse it into javascript,
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
 
   /**
    * Changes the meme randomImage prop source to a random image.
