@@ -46,6 +46,22 @@ export default function Meme() {
       bottomText: "",
     }));
   }
+  /**
+   * Replaces the hard-coded text on the image with the
+   * text being saved to state for the meme object.
+   * @param {event object } event
+   */
+  function handleChange(event) {
+    // Get the name and value properties from the event target.
+    const { name, value } = event.target;
+    // Get the previous data and only update the top or bottom text.
+    setMeme((prevMeme) => {
+      return {
+        ...prevMeme,
+        [name]: value,
+      };
+    });
+  }
 
   // Create a new randomImage image when we click Get a new meme image
   return (
@@ -76,8 +92,8 @@ export default function Meme() {
       </div>
       <div className="meme">
         <img src={meme.randomImage} className="meme--image" alt="" />
-        <h2 className="meme--text top">Top Meme</h2>
-        <h2 className="meme--text bottom">Bottom Meme</h2>
+        <h2 className="meme--text top">{meme.topText}</h2>
+        <h2 className="meme--text bottom">{meme.bottomText}</h2>
       </div>
     </main>
   );
