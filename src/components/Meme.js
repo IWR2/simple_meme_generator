@@ -12,7 +12,7 @@ export default function Meme() {
   const [meme, setMeme] = React.useState({
     topText: "",
     bottomText: "",
-    randomImage: "https://i.imgflip.com/2kbn1e.jpg",
+    randomImage: "",
   });
 
   // Initialize new state variable that defaults to the imported memesData array.

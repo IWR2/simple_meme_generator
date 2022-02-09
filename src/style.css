@@ -87,11 +87,16 @@ fraction units */
 /* Meme component */
 .meme {
   position: relative;
+  width: 700px;
+  max-width: 100%;
+  margin: 1em auto;
 }
+
 /* Set the size of the image */
 .meme--image {
-  max-width: 100%;
+  display: flex;
   border-radius: 3px;
+  width: 100%;
 }
 
 /* Style the meme text */
