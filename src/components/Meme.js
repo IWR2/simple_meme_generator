@@ -16,20 +16,20 @@ export default function Meme() {
   });
 
   // Initialize new state variable that defaults to the imported memesData array.
-  const [allMemeImages, setAllMemeImages] = React.useState(memesData);
+  const [allMemes, setAllMemes] = React.useState(memesData);
 
   /**
    * Changes the meme randomImage prop source to a random image.
    */
   function getMemeImage() {
     // Get the
-    const memesArray = allMemeImages.data.memes;
+    const memesArray = allMemes.data.memes;
     // Generate random number for for the index in the memes array
     const randomNumber = Math.floor(Math.random() * memesArray.length);
     // Image URL string
     const url = memesArray[randomNumber].url;
     // Change only the randomImage url.
-    setMeme((prevMeme) => ({
+    setAllMemes((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
     }));
