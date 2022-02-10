@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 /**
  * Renders the text inputs, buttons, and random meme image.
  * @returns None
+ * Source:
+ * https://mui.com/components/dialogs/#customization
  */
 export default function Meme() {
+  // Intialize open state for the Reset button.
+  const [open, setOpen] = useState(false);
+
   // Create a meme object for the topText, bottomText, and URL.
-  const [meme, setMeme] = React.useState({
+  const [meme, setMeme] = useState({
     topText: "",
     bottomText: "",
     randomImage: "",
   });
 
   // Initialize new state variable that defaults to the imported memesData array.
-  const [allMemes, setAllMemes] = React.useState([]);
+  const [allMemes, setAllMemes] = useState([]);
 
   /**
    * Makes an API call to https://api.imgflip.com/get_memes.
@@ -46,20 +57,43 @@ export default function Meme() {
   }
 
   /**
-   * Resets the topText and bottomText to an empty string when the user
-   * presses the Reset button.
+   * Sets the dialoge button openDialog state to true.
    */
-  function resetText() {
+  function handleClickOpen() {
+    setOpen(true);
+  }
+  /**
+   * Sets the dialoge button open state to false.
+   */
+  function handleClose() {
+    setOpen(false);
+  }
+
+  /**
+   * Closes the dialoge box and Resets the topText and bottomText to an
+   * empty string when the user presses the Reset button.
+   */
+  function handleAgree() {
+    console.log("I agree!");
     setMeme((prevMeme) => ({
       ...prevMeme,
       topText: "",
       bottomText: "",
     }));
+    handleClose();
   }
+  /**
+   * Closes the dialog box and sets open state to close.
+   */
+  function handleDisagree() {
+    console.log("I do not agree.");
+    handleClose();
+  }
+
   /**
    * Replaces the hard-coded text on the image with the
    * text being saved to state for the meme object.
-   * @param {event object } event: Named value from input.
+   * @param {event object } event
    */
   function handleChange(event) {
     // Get the name and value properties from the event target.
@@ -78,6 +112,7 @@ export default function Meme() {
   return (
     <main>
       <div className="form">
+        {/* Input text boxes for top and bottom text. */}
         <input
           type="text"
           placeholder="Top text"
@@ -94,13 +129,49 @@ export default function Meme() {
           value={meme.bottomText}
           onChange={handleChange}
         />
+        {/* Buttons to load a new meme image and reset text. */}
         <button className="form--button" type="button" onClick={getMemeImage}>
           Get a new meme image
         </button>
-        <button className="form--reset" type="button" onClick={resetText}>
+        {/* Button to trigger the opening of the dialog */}
+        <button className="form--reset" type="button" onClick={handleClickOpen}>
           Reset
         </button>
+        {/* Alert dialoge when the user clicks on Reset */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          {/* Set the dialog title */}
+          <DialogTitle id="alert-dialog-title">
+            {"Reset the text?\n"}
+          </DialogTitle>
+          {/* Set the dialog content */}
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You are about to reset the top and bottom text of your meme.
+            </DialogContentText>
+          </DialogContent>
+          {/* Set the dialog buttona actions */}
+          <DialogActions>
+            {/* Set the styles for the Agree and Disagree buttons. */}
+            <Button onClick={handleDisagree} variant="outlined" color="error">
+              Disagree
+            </Button>
+            <Button
+              onClick={handleAgree}
+              autoFocus
+              variant="contained"
+              color="success"
+            >
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
+      {/* Only show text on the image if there's an image loaded. */}
       {meme.randomImage ? (
         <div className="meme">
           <img src={meme.randomImage} className="meme--image" alt="" />
