@@ -38,18 +38,18 @@ export default function Tutorial() {
   return (
     <main>
       <h2 className="title--tutorial">What is a meme?</h2>
-      {summaryData.map((summaryDetail, index) => {
-        return <p>{firstParagraph(summaryDetail.summary)}</p>;
+      {/* Add unique key to each JSON slice paragraph to avoid list warning */}
+      {summaryData.map((summaryDetail) => {
+        return <p key="1">{firstParagraph(summaryDetail.summary)}</p>;
       })}
-      {summaryData.map((summaryDetail, index) => {
-        return <p>{secondParagraph(summaryDetail.summary)}</p>;
+      {summaryData.map((summaryDetail) => {
+        return <p key="2">{secondParagraph(summaryDetail.summary)}</p>;
       })}
-      {summaryData.map((summaryDetail, index) => {
-        return <p>{thirdParagraph(summaryDetail.summary)}</p>;
+      {summaryData.map((summaryDetail) => {
+        return <p key="3">{thirdParagraph(summaryDetail.summary)}</p>;
       })}
-
       <h2 className="title--tutorial">How to make a meme</h2>
-      <ol className="meme--tutorial" type="1">
+      <ol className="meme--tutorial">
         <li>
           <span className="bold">Choose an image.</span> You can click on
           Generate new meme image to load a new image.
@@ -60,7 +60,7 @@ export default function Tutorial() {
         </li>
       </ol>
       <h2 className="title--reset">How to make a reset text</h2>
-      <ol className="reset--tutorial" type="1">
+      <ol className="reset--tutorial">
         <li>
           <span className="bold">Reset text.</span> You can reset the text by
           clicking the Reset button.
