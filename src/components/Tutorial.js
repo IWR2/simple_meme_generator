@@ -9,7 +9,7 @@ export default function Tutorial() {
   /**
    * Returns the first paragraph from the Wikipedia summary.
    * @param {String} content : Value of summary taken from the JSON file.
-   * @returns
+   * @returns {String} result: Text of a paragrpah from JSON.
    */
   function firstParagraph(content) {
     let result = content.slice(0, 506);
@@ -19,7 +19,7 @@ export default function Tutorial() {
   /**
    * Returns the second paragraph from the Wikipedia summary.
    * @param {String} content : Value of summary taken from the JSON file.
-   * @returns
+   * @returns {String} result: Text of a paragrpah from JSON.
    */
   function secondParagraph(content) {
     let result = content.slice(506, 1056);
@@ -29,7 +29,7 @@ export default function Tutorial() {
   /**
    * Returns the third paragraph from the Wikipedia summary.
    * @param {String} content : Value of summary taken from the JSON file.
-   * @returns
+   * @returns {String} result: Text of a paragrpah from JSON.
    */
   function thirdParagraph(content) {
     let result = content.slice(1056);
