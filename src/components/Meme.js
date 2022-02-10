@@ -59,7 +59,7 @@ export default function Meme() {
   /**
    * Replaces the hard-coded text on the image with the
    * text being saved to state for the meme object.
-   * @param {event object } event
+   * @param {event object } event: Named value from input.
    */
   function handleChange(event) {
     // Get the name and value properties from the event target.
