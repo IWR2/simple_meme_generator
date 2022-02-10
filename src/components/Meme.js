@@ -172,14 +172,12 @@ export default function Meme() {
         </Dialog>
       </div>
       {/* Only show text on the image if there's an image loaded. */}
-      {meme.randomImage ? (
+      {meme.randomImage && (
         <div className="meme">
           <img src={meme.randomImage} className="meme--image" alt="" />
           <h2 className="meme--text top">{meme.topText}</h2>
           <h2 className="meme--text bottom">{meme.bottomText}</h2>
         </div>
-      ) : (
-        <></>
       )}
     </main>
   );
