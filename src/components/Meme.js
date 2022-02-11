@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
 
 /**
  * Renders the text inputs, buttons, and random meme image.
@@ -113,21 +114,25 @@ export default function Meme() {
     <main>
       <div className="form">
         {/* Input text boxes for top and bottom text. */}
-        <input
-          type="text"
+        <TextField
+          id="outlined-textarea"
+          label="Top text"
           placeholder="Top text"
           className="form--input"
           name="topText"
           value={meme.topText}
           onChange={handleChange}
+          multiline
         />
-        <input
-          type="text"
-          placeholder="Bottom text"
+        <TextField
+          id="outlined-textarea"
+          label="Bottom Text"
+          placeholder="Bottom Text"
           className="form--input"
           name="bottomText"
           value={meme.bottomText}
           onChange={handleChange}
+          multiline
         />
         {/* Buttons to load a new meme image and reset text. */}
         <button className="form--button" type="button" onClick={getMemeImage}>
