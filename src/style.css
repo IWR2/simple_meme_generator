@@ -10,7 +10,7 @@ body {
 
 /* Set the main padding of the main section */
 main {
-  padding: 36px;
+  padding: 40px;
 }
 
 /* Header Component */
@@ -43,11 +43,7 @@ color and font color. */
 }
 
 /* Form Component */
-/* Style grid to have 3 40px rows and evenly divide the columns with
-fraction units */
 .form {
-  display: grid;
-  grid-template: 40px 40px 40px / 1fr 1fr;
   gap: 17px;
   margin-bottom: 17px;
 }
@@ -57,27 +53,6 @@ fraction units */
   border-radius: 5px;
   border: 1px solid #d5d4d8;
   text-indent: 5px;
-}
-
-/* Have both buttons span from the left screen to the right screen */
-.form--button {
-  grid-column: 1 / -1;
-  font-family: "Nunito", sans-serif;
-  border-radius: 5px;
-  background: #96acfb;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.form--reset {
-  grid-column: 1 / -1;
-  font-family: "Nunito", sans-serif;
-  border-radius: 5px;
-  background: #fb9696;
-  color: white;
-  border: none;
-  cursor: pointer;
 }
 
 /* Meme component */
@@ -93,33 +68,4 @@ fraction units */
   display: flex;
   border-radius: 3px;
   width: 100%;
-}
-
-/* Style the meme text */
-.meme--text {
-  position: absolute;
-  width: 80%;
-  text-align: center;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 15px 0;
-  padding: 0 5px;
-  font-family: impact, sans-serif;
-  font-size: 2em;
-  text-transform: uppercase;
-  color: white;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
-    -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000,
-    2px 2px 5px #000;
-}
-
-/* Set position for the top text of the container element*/
-.top {
-  top: 0;
-}
-
-/* Set position for the bottom text of the container element*/
-.bottom {
-  bottom: 0;
 }

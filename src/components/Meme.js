@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import DownloadIcon from "@mui/icons-material/Download";
+import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
+import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
+import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+
+// Fake Wiki Data
+import wikiData from "../data/data";
 
 /**
  * Renders the text inputs, buttons, and random meme image.
@@ -17,15 +24,32 @@ export default function Meme() {
   // Intialize open state for the Reset button.
   const [open, setOpen] = useState(false);
 
-  // Create a meme object for the topText, bottomText, and URL.
+  // Create a meme state for the topText, bottomText, URL, imageWidth, imageHeight.
   const [meme, setMeme] = useState({
     topText: "",
     bottomText: "",
     randomImage: "",
+    imageWidth: 0,
+    imageHeight: 0,
   });
 
-  // Initialize new state variable that defaults to the imported memesData array.
+  // Create a Wiki state for article name and wikiText
+  const [wikiContent, setWikiContent] = useState({
+    wikiArticle: "",
+    wikiText: "",
+  });
+
+  // Initialize new state variable that defaults to the imported wiki data array.
+  const [allWiki, setAllWiki] = useState(wikiData);
+
+  // Image from url for canvas
+  const [image, setImage] = useState(null);
+
+  // Initialize new state variable that defaults to the imported memes data array.
   const [allMemes, setAllMemes] = useState([]);
+
+  // Canvas to create the meme with top and bottom text
+  const canvas = useRef(null);
 
   /**
    * Makes an API call to https://api.imgflip.com/get_memes.
@@ -46,16 +70,115 @@ export default function Meme() {
    * Changes the meme randomImage prop source to a random image.
    */
   function getMemeImage() {
-    // Generate random number for for the index in the allMemes array
-    const randomNumber = Math.floor(Math.random() * allMemes.length);
-    // Image URL string
-    const url = allMemes[randomNumber].url;
-    // Change only the randomImage url.
+    const wikiArray = allWiki.data.articles;
+    // Generate random number for the index in the allWiki array
+    const randomNumberWiki = Math.floor(Math.random() * wikiArray.length);
+    // Generate random number for the index in the allMemes array
+    const randomNumberMemes = Math.floor(Math.random() * allMemes.length);
+
+    // Wiki Content
+    const articleText = wikiArray[randomNumberWiki].text;
+    //console.log(articleText);
+    const articleTitle = wikiArray[randomNumberWiki].name;
+    //console.log(articleTitle);
+
+    // Random meme Content
+    const url = allMemes[randomNumberMemes].url;
+    const width = allMemes[randomNumberMemes].width;
+    const height = allMemes[randomNumberMemes].height;
+
+    // Set Wiki content
+    setWikiContent((prevText) => ({
+      ...prevText,
+      wikiArticle: articleTitle,
+      wikiText: articleText,
+    }));
+
+    // Set Image Canvas
+    const memeImage = new Image();
+    memeImage.crossOrigin = "anonymous";
+    // Store the url
+    memeImage.src = url;
+    // Set the meme iamge
+    memeImage.onload = () => setImage(memeImage);
+
+    // Change only the randomImage url, width and height
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
+      imageWidth: width,
+      imageHeight: height,
     }));
   }
+  /**
+   * Download function to download meme image
+   */
+  function handleDownload() {
+    var canvas = document.getElementById("canvas");
+    var url = canvas.toDataURL("image/png");
+    var link = document.createElement("a");
+    link.crossOrigin = "Anonymous";
+    link.download = "meme.png";
+    link.href = url;
+
+    link.click();
+  }
+
+  /**
+   * Creates a canvas to draw and write text over the meme image.
+   * Source:
+   * https://workshops.hackclub.com/meme_generator/
+   */
+  useEffect(
+    function () {
+      // Fetch the response and parse it into javascript, and set that object
+      // into the meme array.
+      // If we have both image and canvas,
+      if (image && canvas) {
+        // Get the 2d content
+        const ctx = canvas.current.getContext("2d");
+        // Draw the image
+        ctx.drawImage(image, 0, 0);
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        ctx.textAlign = "center";
+        // Set and style the font according to the size of the image's width
+        let fontSize = meme.imageWidth * 0.1;
+        ctx.font = `${fontSize}px Impact`;
+        ctx.lineWidth = fontSize / 20;
+
+        ctx.textAlign = "center";
+        // Set position for Top text
+        ctx.textBaseline = "bottom";
+        ctx.fillText(
+          meme.topText,
+          meme.imageWidth / 2,
+          fontSize,
+          meme.imageWidth
+        );
+        ctx.strokeText(
+          meme.topText,
+          meme.imageWidth / 2,
+          fontSize,
+          meme.imageWidth
+        );
+        // Set position for Bottom text
+        ctx.fillText(
+          meme.bottomText,
+          meme.imageWidth / 2,
+          meme.imageHeight,
+          meme.imageWidth
+        );
+        ctx.strokeText(
+          meme.bottomText,
+          meme.imageWidth / 2,
+          meme.imageHeight,
+          meme.imageWidth
+        );
+      }
+    },
+    [image, canvas, meme]
+  );
 
   /**
    * Sets the dialoge button openDialog state to true.
@@ -113,35 +236,90 @@ export default function Meme() {
   return (
     <main>
       <div className="form">
-        {/* Input text boxes for top and bottom text. */}
-        <TextField
-          id="outlined-textarea"
-          label="Top text"
-          placeholder="Top text"
-          className="form--input"
-          name="topText"
-          value={meme.topText}
-          onChange={handleChange}
-          multiline
-        />
-        <TextField
-          id="outlined-textarea"
-          label="Bottom Text"
-          placeholder="Bottom Text"
-          className="form--input"
-          name="bottomText"
-          value={meme.bottomText}
-          onChange={handleChange}
-          multiline
-        />
         {/* Buttons to load a new meme image and reset text. */}
-        <button className="form--button" type="button" onClick={getMemeImage}>
-          Get a new meme image
-        </button>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <TextField
+              id="outlined-textarea"
+              label="Top text"
+              placeholder="Top text"
+              className="form--input"
+              name="topText"
+              value={meme.topText}
+              onChange={handleChange}
+              multiline
+            />
+            <TextField
+              id="outlined-textarea"
+              label="Bottom Text"
+              placeholder="Bottom Text"
+              className="form--input"
+              name="bottomText"
+              value={meme.bottomText}
+              onChange={handleChange}
+              multiline
+            />
+          </Stack>
+          <Button
+            style={{
+              maxWidth: "478px",
+              maxHeight: "40px",
+              minWidth: "478px",
+              minHeight: "30px",
+            }}
+            className="form--button"
+            variant="contained"
+            startIcon={<InsertEmoticonRoundedIcon />}
+            onClick={getMemeImage}
+          >
+            Get a new meme image
+          </Button>
+          <Button
+            style={{
+              maxWidth: "478px",
+              maxHeight: "40px",
+              minWidth: "478px",
+              minHeight: "30px",
+            }}
+            className="form--reset"
+            variant="contained"
+            startIcon={<RotateLeftRoundedIcon />}
+            color="secondary"
+            onClick={handleClickOpen}
+          >
+            Reset
+          </Button>
+          {/* Only show the download button when there is an image*/}
+          {meme.randomImage && (
+            <Button
+              style={{
+                maxWidth: "478px",
+                maxHeight: "40px",
+                minWidth: "478px",
+                minHeight: "30px",
+              }}
+              className="form--download"
+              variant="contained"
+              startIcon={<DownloadIcon />}
+              color="success"
+              onClick={handleDownload}
+            >
+              Download
+            </Button>
+          )}
+        </Stack>
+
         {/* Button to trigger the opening of the dialog */}
-        <button className="form--reset" type="button" onClick={handleClickOpen}>
-          Reset
-        </button>
         {/* Alert dialoge when the user clicks on Reset */}
         <Dialog
           open={open}
@@ -176,12 +354,20 @@ export default function Meme() {
           </DialogActions>
         </Dialog>
       </div>
-      {/* Only show text on the image if there's an image loaded. */}
+      {/* Only show image and wiki article if there's an image loaded. */}
       {meme.randomImage && (
         <div className="meme">
-          <img src={meme.randomImage} className="meme--image" alt="" />
-          <h2 className="meme--text top">{meme.topText}</h2>
-          <h2 className="meme--text bottom">{meme.bottomText}</h2>
+          <canvas
+            id="canvas"
+            className="meme--image"
+            title="Right click to save this meme."
+            ref={canvas}
+            width={meme.imageWidth}
+            height={meme.imageHeight}
+          />
+          {console.log(wikiContent.wikiArticle)}
+          <h2>{wikiContent.wikiArticle}</h2>
+          <p>{wikiContent.wikiText}</p>
         </div>
       )}
     </main>
