@@ -1,0 +1,32 @@
+export default {
+  success: true,
+  data: {
+    articles: [
+      {
+        id: "1",
+        name: "Meme",
+        text: "A meme ( MEEM) is an idea, behavior, or style that spreads by means of imitation from person to person within a culture and often carries symbolic meaning representing a particular phenomenon or theme. A meme acts as a unit for carrying cultural ideas, symbols, or practices, that can be transmitted from one mind to another through writing, speech, gestures, rituals, or other imitable phenomena with a mimicked theme. Supporters of the concept regard memes as cultural analogues to genes in that they self-replicate, mutate, and respond to selective pressures.Proponents theorize that memes are a viral phenomenon that may evolve by natural selection in a manner analogous to that of biological evolution. Memes do this through the processes of variation, mutation, competition, and inheritance, each of which influences a meme's reproductive success. Memes spread through the behavior that they generate in their hosts. Memes that propagate less prolifically may become extinct, while others may survive, spread, and (for better or for worse) mutate. Memes that replicate most effectively enjoy more success, and some may replicate effectively even when they prove to be detrimental to the welfare of their hosts.A field of study called memetics arose in the 1990s to explore the concepts and transmission of memes in terms of an evolutionary model. Criticism from a variety of fronts has challenged the notion that academic study can examine memes empirically. However, developments in neuroimaging may make empirical study possible. Some commentators in the social sciences question the idea that one can meaningfully categorize culture in terms of discrete units, and are especially critical of the biological nature of the theory's underpinnings. Others have argued that this use of the term is the result of a misunderstanding of the original proposal.The word meme itself is a neologism coined by Richard Dawkins, originating from his 1976 book The Selfish Gene. Dawkins's own position is somewhat ambiguous. He welcomed N. K. Humphrey's suggestion that \"memes should be considered as living structures, not just metaphorically\" and proposed to regard memes as \"physically residing in the brain.\" Although Dawkins said his original intentions had been simpler, he approved Humphrey's opinion and he endorsed Susan Blackmore's 1999 project to give a scientific theory of memes, complete with predictions and empirical support.",
+      },
+      {
+        id: "2",
+        name: "Internet Meme",
+        text: 'An Internet meme, more commonly known simply as a meme ( MEEM), is an idea, behavior, image, or style that is spread via the Internet, often through social media platforms. What is considered a meme may vary across different communities on the Internet and is subject to change over time. Traditionally, they were a concept or catchphrase, but the concept has since become broader and more multi-faceted, evolving to include more elaborate structures such as challenges, GIFs, videos, and viral sensations.Internet memes are considered a part of Internet culture. They can spread from person to person via social networks, blogs, direct email, or news sources. Instant communication on the Internet facilitates word of mouth transmission, resulting in fads and sensations that tend to grow rapidly. An example of such a fad is that of planking (lying down in public places); posting a photo of someone planking online brings attention to the fad and allows it to reach many people in little time. The Internet also facilitates the rapid evolution of memes.\nOne hallmark of Internet memes is the appropriation of a part of broader culture; in particular, many memes use popular culture (especially in image macros of other media), which can sometimes lead to issues with copyright. "Dank" memes have emerged as a new form of image-macros, and many modern memes take on inclusion of surreal, nonsensical, and non-sequitur themes. Colloquially, the terms meme and Internet meme are used more loosely, having become umbrella terms for any piece of quickly-consumed comedic content that may not necessarily be intended to spread or evolve.\n\n',
+      },
+      {
+        id: "3",
+        name: "Image Macro",
+        text: "An image macro is a piece of digital media featuring a picture, or artwork, with some form of text superimposed. The text frequently appears at the top and bottom of the image. Image macros are one of the most common forms of internet memes, and often feature a witty message or catchphrase, although not all image macros are necessarily humorous. LOLcats, which are images of expressive cats coupled with texts, are considered to be the first notable occurrence of image macros. Advice animal image macros, also referred to as stock-character macros, are also highly associated with the image macro template.\n\n",
+      },
+      {
+        id: "4",
+        name: "Internet Phenomena",
+        text: "Social and cultural phenomena specific to the Internet include Internet memes, such as popular themes, catchphrases, images, viral videos, and jokes. When such fads and sensations occur online, they tend to grow rapidly and become more widespread because the instant communication facilitates word of mouth transmission.\nThe below partial list focuses more on Internet phenomena that is not restricted by regional Internet laws; other countries such as China or Pakistan do have Internet phenomena specific there that is not blocked by regional laws. These are covered in List of Internet phenomena in China and List of Internet phenomena in Pakistan.",
+      },
+      {
+        id: "5",
+        name: "Meta Humor",
+        text: "Self-referential humor, also known as self-reflexive humor or meta humor, is a type of comedic expression that—either directed toward some other subject, or openly directed toward itself—is self-referential in some way, intentionally alluding to the very person who is expressing the humor in a comedic fashion, or to some specific aspect of that same comedic expression.  Self-referential humor expressed discreetly and surrealistically is a form of bathos. In general, self-referential humor often uses hypocrisy, oxymoron, or paradox to create a contradictory or otherwise absurd situation that is humorous to the audience.",
+      },
+    ],
+  },
+};
