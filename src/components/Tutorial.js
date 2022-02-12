@@ -18,7 +18,11 @@ export default function Tutorial() {
   }
   return (
     <main>
-      <Button variant="outlined" startIcon={<HelpIcon />} onClick={handleClick}>
+      <Button
+        variant="contained"
+        startIcon={<HelpIcon />}
+        onClick={handleClick}
+      >
         {showTutorial ? "Hide" : "Show"} Tutorial
       </Button>
       {showTutorial && (
