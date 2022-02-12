@@ -19,7 +19,7 @@ export default function Tutorial() {
   return (
     <main>
       <Button variant="outlined" startIcon={<HelpIcon />} onClick={handleClick}>
-        Show Tutorial
+        {showTutorial ? "Hide" : "Show"} Tutorial
       </Button>
       {showTutorial && (
         <Stack spacing={2}>
