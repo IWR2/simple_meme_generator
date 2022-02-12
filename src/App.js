@@ -12,8 +12,8 @@ export default function App() {
   return (
     <div className="App">
       <Header />
-      <Meme />
       <Tutorial />
+      <Meme />
     </div>
   );
 }
