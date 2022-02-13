@@ -16,7 +16,7 @@ export default function App() {
         <Grid item xs="auto" md={4}>
           <Tutorial />
         </Grid>
-        <Grid item xs="auto">
+        <Grid item xs="auto" md={4}>
           <Meme />
         </Grid>
       </Grid>
