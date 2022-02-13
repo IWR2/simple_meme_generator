@@ -1,7 +1,9 @@
 import React from "react";
-import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import HelpIcon from "@mui/icons-material/Help";
+import Stack from "@mui/material/Stack";
+
 /**
  * Renders the tutorial below the meme section.
  */
@@ -26,33 +28,51 @@ export default function Tutorial() {
         {showTutorial ? "Hide" : "Show"} Tutorial
       </Button>
       {showTutorial && (
-        <Stack spacing={2}>
-          <h2 className="title--tutorial">How to make a meme</h2>
-          <ol className="tutorial--meme">
-            <li>
-              <span className="bold">Load a random meme.</span> You can click on
-              Generate new meme image to load a new image.
-            </li>
-            <li>
-              <span className="bold">Add customizations.</span> You can add text
-              to the top or bottom of the image.
-            </li>
-          </ol>
-          <h2 className="title--reset">How to make a reset text</h2>
-          <ol className="tutorial--reset">
-            <li>
-              <span className="bold">Reset text.</span> You can reset the text
-              by clicking the Reset button.
-            </li>
-          </ol>
-          <h2 className="title--download">How to download a meme</h2>
-          <ol className="tutorial--download">
-            <li>
-              <span className="bold">Download a meme.</span> Once a meme is
-              loaded, click on the Download button to download the image.
-            </li>
-          </ol>
-        </Stack>
+        <Box
+          sx={{
+            p: 1,
+            width: "40rem",
+            height: "20rem",
+            m: 1,
+            border: 1,
+            display: "flex",
+            justifyContent: "center",
+            borderRadius: "16px",
+            backgroundColor: "#96acfb",
+            opacity: [0.9, 0.8, 0.7],
+          }}
+        >
+          <Stack spacing={2}>
+            <h3 className="title--tutorial">How to make a meme</h3>
+
+            <ol className="tutorial--meme">
+              <li>
+                <span className="bold">Load a random meme.</span> You can click
+                on Generate new meme image to load a new image.
+              </li>
+              <li>
+                <span className="bold">Add customizations.</span> You can add
+                text to the top or bottom of the image.
+              </li>
+            </ol>
+            <h3 className="title--reset">How to make a reset text</h3>
+
+            <ol className="tutorial--reset">
+              <li>
+                <span className="bold">Reset text.</span> You can reset the text
+                by clicking Reset.
+              </li>
+            </ol>
+            <h3 className="title--download">How to download a meme</h3>
+
+            <ol className="tutorial--download">
+              <li>
+                <span className="bold">Download a meme.</span> You can download
+                the image by clicking Download.
+              </li>
+            </ol>
+          </Stack>
+        </Box>
       )}
     </main>
   );

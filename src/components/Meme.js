@@ -54,7 +54,8 @@ export default function Meme() {
   /**
    * Makes an API call to https://api.imgflip.com/get_memes.
    * When the data comes in, it saves the memes array part of that
-   * data to the allMemes state.
+   * data to the allMemes state. Sets a random wiki article upon
+   * every click.
    * Source:
    * https://imgflip.com/api
    */
@@ -94,15 +95,16 @@ export default function Meme() {
       wikiText: articleText,
     }));
 
-    // Set Image Canvas
+    // Set Image Canvas to use the image url
     const memeImage = new Image();
-    memeImage.crossOrigin = "anonymous";
+    // Enable Cross-Origin anonymous for downloading
+    memeImage.crossOrigin = "Anonymous";
     // Store the url
     memeImage.src = url;
     // Set the meme iamge
     memeImage.onload = () => setImage(memeImage);
 
-    // Change only the randomImage url, width and height
+    // Allow change to randomImage url, width or height independently
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
@@ -117,7 +119,6 @@ export default function Meme() {
     var canvas = document.getElementById("canvas");
     var url = canvas.toDataURL("image/png");
     var link = document.createElement("a");
-    link.crossOrigin = "Anonymous";
     link.download = "meme.png";
     link.href = url;
 
@@ -125,7 +126,8 @@ export default function Meme() {
   }
 
   /**
-   * Creates a canvas to draw and write text over the meme image.
+   * Creates a canvas to draw and write text over the meme image. Cavnas
+   * is rerendered whenever there is a change to the URL or text chjanges.
    * Source:
    * https://workshops.hackclub.com/meme_generator/
    */
@@ -231,6 +233,14 @@ export default function Meme() {
     });
   }
 
+  // Set every button's size
+  const buttonStyle = {
+    maxWidth: "478px",
+    maxHeight: "40px",
+    minWidth: "478px",
+    minHeight: "30px",
+  };
+
   // Create a new randomImage image when we click Get a new meme image
   // Only display the text if there's a meme image.
   return (
@@ -271,12 +281,7 @@ export default function Meme() {
             />
           </Stack>
           <Button
-            style={{
-              maxWidth: "478px",
-              maxHeight: "40px",
-              minWidth: "478px",
-              minHeight: "30px",
-            }}
+            style={buttonStyle}
             className="form--button"
             variant="contained"
             startIcon={<InsertEmoticonRoundedIcon />}
@@ -285,12 +290,7 @@ export default function Meme() {
             Get a new meme image
           </Button>
           <Button
-            style={{
-              maxWidth: "478px",
-              maxHeight: "40px",
-              minWidth: "478px",
-              minHeight: "30px",
-            }}
+            style={buttonStyle}
             className="form--reset"
             variant="contained"
             startIcon={<RotateLeftRoundedIcon />}
@@ -302,12 +302,7 @@ export default function Meme() {
           {/* Only show the download button when there is an image*/}
           {meme.randomImage && (
             <Button
-              style={{
-                maxWidth: "478px",
-                maxHeight: "40px",
-                minWidth: "478px",
-                minHeight: "30px",
-              }}
+              style={buttonStyle}
               className="form--download"
               variant="contained"
               startIcon={<DownloadIcon />}
