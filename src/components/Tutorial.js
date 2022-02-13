@@ -44,7 +44,6 @@ export default function Tutorial() {
         >
           <Stack spacing={2}>
             <h3 className="title--tutorial">How to make a meme</h3>
-
             <ol className="tutorial--meme">
               <li>
                 <span className="bold">Load a random meme.</span> You can click
@@ -64,7 +63,6 @@ export default function Tutorial() {
               </li>
             </ol>
             <h3 className="title--download">How to download a meme</h3>
-
             <ol className="tutorial--download">
               <li>
                 <span className="bold">Download a meme.</span> You can download
