@@ -31,15 +31,14 @@ export default function Tutorial() {
         <Box
           sx={{
             p: 1,
-            width: "40rem",
-            height: "20rem",
+            width: "400px",
+            height: "375px",
             m: 1,
             border: 1,
             display: "flex",
             justifyContent: "center",
             borderRadius: "16px",
             backgroundColor: "#96acfb",
-            opacity: [0.9, 0.8, 0.7],
           }}
         >
           <Stack spacing={2}>
