@@ -5,7 +5,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import DownloadIcon from "@mui/icons-material/Download";
 import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
 import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
 import Stack from "@mui/material/Stack";
@@ -111,18 +110,6 @@ export default function Meme() {
       imageWidth: width,
       imageHeight: height,
     }));
-  }
-  /**
-   * Download function to download meme image
-   */
-  function handleDownload() {
-    var canvas = document.getElementById("canvas");
-    var url = canvas.toDataURL("image/png");
-    var link = document.createElement("a");
-    link.download = "meme.png";
-    link.href = url;
-
-    link.click();
   }
 
   /**
@@ -299,19 +286,6 @@ export default function Meme() {
           >
             Reset
           </Button>
-          {/* Only show the download button when there is an image*/}
-          {meme.randomImage && (
-            <Button
-              style={buttonStyle}
-              className="form--download"
-              variant="contained"
-              startIcon={<DownloadIcon />}
-              color="success"
-              onClick={handleDownload}
-            >
-              Download
-            </Button>
-          )}
         </Stack>
 
         {/* Button to trigger the opening of the dialog */}
@@ -355,7 +329,6 @@ export default function Meme() {
           <canvas
             id="canvas"
             className="meme--image"
-            title="Right click to save this meme."
             ref={canvas}
             width={meme.imageWidth}
             height={meme.imageHeight}
