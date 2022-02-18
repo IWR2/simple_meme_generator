@@ -32,7 +32,7 @@ export default function Tutorial() {
           sx={{
             p: 1,
             width: "400px",
-            height: "300px",
+            height: "375",
             m: 1,
             border: 1,
             display: "flex",
@@ -54,11 +54,17 @@ export default function Tutorial() {
               </li>
             </ol>
             <h3 className="title--reset">How to make a reset text</h3>
-
             <ol className="tutorial--reset">
               <li>
                 <span className="bold">Reset text.</span> You can reset the text
                 by clicking Reset.
+              </li>
+            </ol>
+            <h3 className="title--download">How to download a meme</h3>
+            <ol className="tutorial--download">
+              <li>
+                <span className="bold">Download a meme.</span> You can download
+                the image by clicking Download.
               </li>
             </ol>
           </Stack>
