@@ -71,29 +71,13 @@ export default function Meme() {
    * Changes the meme randomImage prop source to a random image.
    */
   function getMemeImage() {
-    const wikiArray = allWiki.data.articles;
-    // Generate random number for the index in the allWiki array
-    const randomNumberWiki = Math.floor(Math.random() * wikiArray.length);
     // Generate random number for the index in the allMemes array
     const randomNumberMemes = Math.floor(Math.random() * allMemes.length);
-
-    // Wiki Content
-    const articleText = wikiArray[randomNumberWiki].text;
-    //console.log(articleText);
-    const articleTitle = wikiArray[randomNumberWiki].name;
-    //console.log(articleTitle);
 
     // Random meme Content
     const url = allMemes[randomNumberMemes].url;
     const width = allMemes[randomNumberMemes].width;
     const height = allMemes[randomNumberMemes].height;
-
-    // Set Wiki content
-    setWikiContent((prevText) => ({
-      ...prevText,
-      wikiArticle: articleTitle,
-      wikiText: articleText,
-    }));
 
     // Set Image Canvas to use the image url
     const memeImage = new Image();
@@ -110,6 +94,28 @@ export default function Meme() {
       randomImage: url,
       imageWidth: width,
       imageHeight: height,
+    }));
+  }
+
+  /**
+   * Displays a random article
+   */
+  function getWikiArticle() {
+    const wikiArray = allWiki.data.articles;
+    // Generate random number for the index in the allWiki array
+    const randomNumberWiki = Math.floor(Math.random() * wikiArray.length);
+
+    // Wiki Content
+    const articleText = wikiArray[randomNumberWiki].text;
+    //console.log(articleText);
+    const articleTitle = wikiArray[randomNumberWiki].name;
+    //console.log(articleTitle);
+
+    // Set Wiki content
+    setWikiContent((prevText) => ({
+      ...prevText,
+      wikiArticle: articleTitle,
+      wikiText: articleText,
     }));
   }
 
@@ -286,7 +292,10 @@ export default function Meme() {
             className="form--button"
             variant="contained"
             startIcon={<InsertEmoticonRoundedIcon />}
-            onClick={getMemeImage}
+            onClick={() => {
+              getMemeImage();
+              getWikiArticle();
+            }}
           >
             Get a new meme image
           </Button>
