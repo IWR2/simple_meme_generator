@@ -140,10 +140,10 @@ export default function Meme() {
    * to be displayed as a header and a paragraph element. It uses the random
    * search parameter from the list of searches.
    */
-  React.useEffect(
+  useEffect(
     function () {
       // Fetch the response and parse it into javascript, and set that object
-      // into the meme array.
+      // as wikiScraperResponse to save later as text.
       fetch(
         `https://cs361-wiki-app.herokuapp.com/?search=${wikiContent.wikiSearch}`
       )
