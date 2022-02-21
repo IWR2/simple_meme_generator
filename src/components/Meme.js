@@ -116,6 +116,13 @@ export default function Meme() {
     // Wiki Content
     const searchParam = searchArray[randomNumber].search;
 
+    // Get the text form the JSON response
+    let text = "";
+    for (const key in wikiScraperResponse) {
+      // Set the text as the value
+      text = wikiScraperResponse[key];
+    }
+
     console.log(articleTitle);
 
     // Set Wiki content
@@ -123,6 +130,7 @@ export default function Meme() {
       ...prevWiki,
       wikiArticle: articleTitle,
       wikiSearch: searchParam,
+      wikiText: text,
     }));
   }
 
@@ -142,12 +150,8 @@ export default function Meme() {
         .then((res) => res.json())
         .then((data) => setWikiScraperResponse(data));
       // Set the json value as the wikiText
-      setWikiContent((prevWiki) => ({
-        ...prevWiki,
-        wikiText: wikiScraperResponse[wikiContent.wikiSearch],
-      }));
     },
-    [wikiContent.wikiSearch, wikiScraperResponse]
+    [wikiContent.wikiSearch]
   );
 
   /**
