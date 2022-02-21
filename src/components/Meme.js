@@ -11,8 +11,8 @@ import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 
-// Fake Wiki Data
-import wikiData from "../data/data";
+// List of Articles to search
+import searchData from "../data/searches";
 
 /**
  * Renders the text inputs, buttons, and random meme image.
@@ -33,14 +33,19 @@ export default function Meme() {
     imageHeight: 0,
   });
 
-  // Create a Wiki state for article name and wikiText
+  // Create a Wiki state for article name and search param and
+  // set "Internet Meme" as the first wiki article to search
   const [wikiContent, setWikiContent] = useState({
-    wikiArticle: "",
+    wikiArticle: "Internet Meme",
+    wikiSearch: "internet_meme",
     wikiText: "",
   });
 
   // Initialize new state variable that defaults to the imported wiki data array.
-  const [allWiki, setAllWiki] = useState(wikiData);
+  const [allWiki, setAllWiki] = useState(searchData);
+
+  // Inttialize a state for teammate's WikiScraper response
+  const [wikiScraperResponse, setWikiScraperResponse] = React.useState({});
 
   // Image from url for canvas
   const [image, setImage] = useState(null);
@@ -101,23 +106,49 @@ export default function Meme() {
    * Displays a random article
    */
   function getWikiArticle() {
-    const wikiArray = allWiki.data.articles;
+    // From the data.js get the articles array
+    const searchArray = allWiki.data.articles;
     // Generate random number for the index in the allWiki array
-    const randomNumberWiki = Math.floor(Math.random() * wikiArray.length);
+    const randomNumber = Math.floor(Math.random() * searchArray.length);
+    //console.log(articleText);
+    const articleTitle = searchArray[randomNumber].name;
 
     // Wiki Content
-    const articleText = wikiArray[randomNumberWiki].text;
-    //console.log(articleText);
-    const articleTitle = wikiArray[randomNumberWiki].name;
-    //console.log(articleTitle);
+    const searchParam = searchArray[randomNumber].search;
+
+    console.log(articleTitle);
 
     // Set Wiki content
-    setWikiContent((prevText) => ({
-      ...prevText,
+    setWikiContent((prevWiki) => ({
+      ...prevWiki,
       wikiArticle: articleTitle,
-      wikiText: articleText,
+      wikiSearch: searchParam,
     }));
   }
+
+  /**
+   * Makes a Get Request for a random article to my teammate's Wiki Scraper.
+   * When the data comes in, it saves the the search query and response
+   * to be displayed as a header and a paragraph element. It uses the random
+   * search parameter from the list of searches.
+   */
+  React.useEffect(
+    function () {
+      // Fetch the response and parse it into javascript, and set that object
+      // into the meme array.
+      fetch(
+        `https://cs361-wiki-app.herokuapp.com/?search=${wikiContent.wikiSearch}`
+      )
+        .then((res) => res.json())
+        .then((data) => setWikiScraperResponse(data));
+      // Set the json value as the wikiText
+      setWikiContent((prevWiki) => ({
+        ...prevWiki,
+        wikiText: wikiScraperResponse[wikiContent.wikiSearch],
+      }));
+    },
+    [wikiContent.wikiSearch, wikiScraperResponse]
+  );
 
   /**
    * Download function to download meme image
@@ -126,6 +157,7 @@ export default function Meme() {
     var canvas = document.getElementById("canvas");
     var url = canvas.toDataURL("image/png");
     var link = document.createElement("a");
+    // Name the file meme.png
     link.download = "meme.png";
     link.href = url;
 
@@ -369,7 +401,6 @@ export default function Meme() {
             width={meme.imageWidth}
             height={meme.imageHeight}
           />
-          {console.log(wikiContent.wikiArticle)}
           <h2>{wikiContent.wikiArticle}</h2>
           <p>{wikiContent.wikiText}</p>
         </div>
