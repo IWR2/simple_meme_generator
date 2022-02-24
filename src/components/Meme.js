@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -36,16 +37,13 @@ export default function Meme() {
   // Create a Wiki state for article name and search param and
   // set "Internet Meme" as the first wiki article to search
   const [wikiContent, setWikiContent] = useState({
-    wikiArticle: "Internet Meme",
-    wikiSearch: "internet_meme",
+    wikiArticle: "",
+    wikiSearch: "",
     wikiText: "",
   });
 
   // Initialize new state variable that defaults to the imported wiki data array.
   const [allWiki, setAllWiki] = useState(searchData);
-
-  // Inttialize a state for teammate's WikiScraper response
-  const [wikiScraperResponse, setWikiScraperResponse] = React.useState({});
 
   // Image from url for canvas
   const [image, setImage] = useState(null);
@@ -109,28 +107,21 @@ export default function Meme() {
     // From the data.js get the articles array
     const searchArray = allWiki.data.articles;
     // Generate random number for the index in the allWiki array
-    const randomNumber = Math.floor(Math.random() * searchArray.length);
+    let randomNumber = Math.floor(Math.random() * searchArray.length);
     //console.log(articleText);
-    const articleTitle = searchArray[randomNumber].name;
-
+    let articleTitle = searchArray[randomNumber].name;
     // Wiki Content
-    const searchParam = searchArray[randomNumber].search;
+    let searchParam = searchArray[randomNumber].search;
 
-    // Get the text form the JSON response
-    let text = "";
-    for (const key in wikiScraperResponse) {
-      // Set the text as the value
-      text = wikiScraperResponse[key];
-    }
+    // Send a get request to teammate's API with searchParam and
+    // set the wikiText as the response value
+    fetchData(searchParam);
 
-    console.log(articleTitle);
-
-    // Set Wiki content
+    // Only set Wiki content for article and search
     setWikiContent((prevWiki) => ({
       ...prevWiki,
       wikiArticle: articleTitle,
       wikiSearch: searchParam,
-      wikiText: text,
     }));
   }
 
@@ -140,19 +131,18 @@ export default function Meme() {
    * to be displayed as a header and a paragraph element. It uses the random
    * search parameter from the list of searches.
    */
-  useEffect(
-    function () {
-      // Fetch the response and parse it into javascript, and set that object
-      // as wikiScraperResponse to save later as text.
-      fetch(
-        `https://cs361-wiki-app.herokuapp.com/?search=${wikiContent.wikiSearch}`
-      )
-        .then((res) => res.json())
-        .then((data) => setWikiScraperResponse(data));
-      // Set the json value as the wikiText
-    },
-    [wikiContent.wikiSearch]
-  );
+  const fetchData = async (searchParam) => {
+    const response = await axios.get(
+      `https://cs361-wiki-app.herokuapp.com/?search=${searchParam}`
+    );
+    // Only set the wikiText with the response value
+    setWikiContent((prevWiki) => ({
+      ...prevWiki,
+      wikiText: response.data[searchParam],
+    }));
+    //console.log(response.data[searchParam]);
+    //console.log(searchParam);
+  };
 
   /**
    * Download function to download meme image
