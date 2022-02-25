@@ -18,11 +18,6 @@ export default {
       },
       {
         id: "4",
-        name: "Internet Phenomena",
-        search: "list_of_Internet_phenomena",
-      },
-      {
-        id: "5",
         name: "Meta Humor",
         search: "meta_humor",
       },
