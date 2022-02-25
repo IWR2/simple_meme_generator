@@ -135,11 +135,39 @@ export default function Meme() {
     const response = await axios.get(
       `https://cs361-wiki-app.herokuapp.com/?search=${searchParam}`
     );
-    // Only set the wikiText with the response value
-    setWikiContent((prevWiki) => ({
-      ...prevWiki,
-      wikiText: response.data[searchParam],
-    }));
+    // Add a newline for each paragraph
+    // Special case for meme article which has no newline
+    if (searchParam == "meme") {
+      // Split each paraph
+      const firstParagraph = response.data[searchParam].slice(0, 562);
+      const secondParagraph = response.data[searchParam].slice(562, 923);
+      const thirdParagraph = response.data[searchParam].slice(923, 1216);
+      const fourthParagraph = response.data[searchParam].slice(1216, 1860);
+      // Add double newlines inbetween each paragraph
+      const newtext =
+        firstParagraph +
+        "\n\n" +
+        secondParagraph +
+        "\n\n" +
+        thirdParagraph +
+        "\n\n" +
+        fourthParagraph +
+        "\n\n";
+      // Set the wikiText as the newText
+      setWikiContent((prevWiki) => ({
+        ...prevWiki,
+        wikiText: newtext,
+      }));
+      //console.log(fourthParagraph);
+    } else {
+      // Regular case, Add a new line after every newline to separate paragraphs
+      let newText = response.data[searchParam].replace(/\n/g, "\n\n");
+      // Set the wikiText as the newText
+      setWikiContent((prevWiki) => ({
+        ...prevWiki,
+        wikiText: newText,
+      }));
+    }
     //console.log(response.data[searchParam]);
     //console.log(searchParam);
   };
@@ -396,7 +424,7 @@ export default function Meme() {
             height={meme.imageHeight}
           />
           <h2>{wikiContent.wikiArticle}</h2>
-          <p>{wikiContent.wikiText}</p>
+          <p className="meme--facts">{wikiContent.wikiText}</p>
         </div>
       )}
     </main>
