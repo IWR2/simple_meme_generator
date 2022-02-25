@@ -138,7 +138,7 @@ export default function Meme() {
     let newText = "";
     // Add a newline for each paragraph
     // Special case for meme and internet_meme which have multiple paragraphs
-    if (searchParam == "meme" || "internet_meme") {
+    if (searchParam === "meme" || "internet_meme") {
       // Add double newlines inbetween each paragraph
       newText = addNewLine(response.data[searchParam]);
     } else {
@@ -302,7 +302,6 @@ export default function Meme() {
   return (
     <main>
       <div className="form">
-        {/* Buttons to load a new meme image and reset text. */}
         <Stack
           direction="column"
           justifyContent="center"
@@ -336,6 +335,7 @@ export default function Meme() {
               multiline
             />
           </Stack>
+          {/* Button to load image and Wiki Article */}
           <Button
             style={buttonStyle}
             className="form--button"
@@ -348,6 +348,7 @@ export default function Meme() {
           >
             Get a new meme image
           </Button>
+          {/* Button Reset Text */}
           <Button
             style={buttonStyle}
             className="form--reset"
@@ -358,7 +359,7 @@ export default function Meme() {
           >
             Reset
           </Button>
-          {/* Only show the download button when there is an image*/}
+          {/* Only show the Download button when there is an image*/}
           {meme.randomImage && (
             <Button
               style={buttonStyle}
