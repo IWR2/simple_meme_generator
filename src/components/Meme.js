@@ -135,42 +135,48 @@ export default function Meme() {
     const response = await axios.get(
       `https://cs361-wiki-app.herokuapp.com/?search=${searchParam}`
     );
+    let newText = "";
     // Add a newline for each paragraph
     // Special case for meme article which has no newline
     if (searchParam == "meme") {
-      // Split each paraph
-      const firstParagraph = response.data[searchParam].slice(0, 562);
-      const secondParagraph = response.data[searchParam].slice(562, 923);
-      const thirdParagraph = response.data[searchParam].slice(923, 1216);
-      const fourthParagraph = response.data[searchParam].slice(1216, 1860);
       // Add double newlines inbetween each paragraph
-      const newtext =
-        firstParagraph +
-        "\n\n" +
-        secondParagraph +
-        "\n\n" +
-        thirdParagraph +
-        "\n\n" +
-        fourthParagraph +
-        "\n\n";
-      // Set the wikiText as the newText
-      setWikiContent((prevWiki) => ({
-        ...prevWiki,
-        wikiText: newtext,
-      }));
-      //console.log(fourthParagraph);
+      newText = addNewLine(response.data[searchParam]);
     } else {
       // Regular case, Add a new line after every newline to separate paragraphs
-      let newText = response.data[searchParam].replace(/\n/g, "\n\n");
-      // Set the wikiText as the newText
-      setWikiContent((prevWiki) => ({
-        ...prevWiki,
-        wikiText: newText,
-      }));
+      newText = response.data[searchParam].replace(/\n/g, "\n\n");
     }
+    // Set the wikiText as the newText
+    setWikiContent((prevWiki) => ({
+      ...prevWiki,
+      wikiText: newText,
+    }));
     //console.log(response.data[searchParam]);
     //console.log(searchParam);
   };
+
+  /**
+   * Slices the text at each paragraph and adds 2 newline characters in between them.
+   * @param {String} text Text from Wiki Meme article to add new lines to
+   * @returns {String} newText  New string with added newlines characters.
+   */
+  function addNewLine(text) {
+    // Separate each paragraph similarly to Wiki Meme article
+    const firstParagraph = text.slice(0, 562);
+    const secondParagraph = text.slice(562, 923);
+    const thirdParagraph = text.slice(923, 1216);
+    const fourthParagraph = text.slice(1216, 1860);
+    // Add 2 newlines between each paragraph
+    let newText =
+      firstParagraph +
+      "\n\n" +
+      secondParagraph +
+      "\n\n" +
+      thirdParagraph +
+      "\n\n" +
+      fourthParagraph +
+      "\n\n";
+    return newText;
+  }
 
   /**
    * Download function to download meme image
