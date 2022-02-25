@@ -38,7 +38,6 @@ export default function Meme() {
   // set "Internet Meme" as the first wiki article to search
   const [wikiContent, setWikiContent] = useState({
     wikiArticle: "",
-    wikiSearch: "",
     wikiText: "",
   });
 
@@ -101,7 +100,8 @@ export default function Meme() {
   }
 
   /**
-   * Displays a random article
+   * Selects a random article and sets the article title then calls
+   * fetchData to make a get request to my teammate's microservice.
    */
   function getWikiArticle() {
     // From the data.js get the articles array
@@ -113,16 +113,15 @@ export default function Meme() {
     // Wiki Content
     let searchParam = searchArray[randomNumber].search;
 
-    // Send a get request to teammate's API with searchParam and
-    // set the wikiText as the response value
-    fetchData(searchParam);
-
     // Only set Wiki content for article and search
     setWikiContent((prevWiki) => ({
       ...prevWiki,
       wikiArticle: articleTitle,
-      wikiSearch: searchParam,
     }));
+
+    // Send a get request to teammate's microservice with searchParam and
+    // set the wikiText as the response value
+    fetchData(searchParam);
   }
 
   /**
