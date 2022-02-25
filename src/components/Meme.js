@@ -137,8 +137,8 @@ export default function Meme() {
     );
     let newText = "";
     // Add a newline for each paragraph
-    // Special case for meme article which has no newline
-    if (searchParam == "meme") {
+    // Special case for meme and internet_meme which have multiple paragraphs
+    if (searchParam == "meme" || "internet_meme") {
       // Add double newlines inbetween each paragraph
       newText = addNewLine(response.data[searchParam]);
     } else {
@@ -160,21 +160,10 @@ export default function Meme() {
    * @returns {String} newText  New string with added newlines characters.
    */
   function addNewLine(text) {
-    // Separate each paragraph similarly to Wiki Meme article
-    const firstParagraph = text.slice(0, 562);
-    const secondParagraph = text.slice(562, 923);
-    const thirdParagraph = text.slice(923, 1216);
-    const fourthParagraph = text.slice(1216, 1860);
     // Add 2 newlines between each paragraph
-    let newText =
-      firstParagraph +
-      "\n\n" +
-      secondParagraph +
-      "\n\n" +
-      thirdParagraph +
-      "\n\n" +
-      fourthParagraph +
-      "\n\n";
+    let newText = text.replace('."', '. "');
+    newText = newText.replace(/\.(?!\s|$)/g, "\n");
+    newText = newText.replace(/\n/g, "\n\n");
     return newText;
   }
 
