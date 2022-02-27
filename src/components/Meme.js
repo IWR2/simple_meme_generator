@@ -139,7 +139,7 @@ export default function Meme() {
     // Special case for meme and internet_meme which have multiple paragraphs
     if (searchParam === "meme" || "internet_meme") {
       // Add double newlines inbetween each paragraph
-      newText = addNewLine(response.data[searchParam]);
+      newText = formatText(response.data[searchParam]);
     } else {
       // Regular case, Add a new line after every newline to separate paragraphs
       newText = response.data[searchParam].replace(/\n/g, "\n\n");
@@ -154,14 +154,20 @@ export default function Meme() {
   };
 
   /**
-   * Slices the text at each paragraph and adds 2 newline characters in between them.
+   * Formats the chunk of text from teammate's microservice into separate
+   * paragraphs by finding period endstops with no whitespace and replacing
+   * newlines with double newlines.
    * @param {String} text Text from Wiki Meme article to add new lines to
-   * @returns {String} newText  New string with added newlines characters.
+   * @returns {String} newText New string with added newlines characters.
    */
-  function addNewLine(text) {
-    // Add 2 newlines between each paragraph
+  function formatText(text) {
+    // Find special case of a period next to a quotation mark
+    // and add a space to it
     let newText = text.replace('."', '. "');
+    // Find any period that does not have whitespace and
+    // add a newline next to it.
     newText = newText.replace(/\.(?!\s|$)/g, "\n");
+    // Add 2 newlines between each paragraph
     newText = newText.replace(/\n/g, "\n\n");
     return newText;
   }
