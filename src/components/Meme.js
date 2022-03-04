@@ -11,6 +11,7 @@ import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded
 import RotateLeftRoundedIcon from "@mui/icons-material/RotateLeftRounded";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
 
 // List of Articles to search
 import searchData from "../data/searches";
@@ -388,9 +389,7 @@ export default function Meme() {
           aria-describedby="alert-dialog-description"
         >
           {/* Set the dialog title */}
-          <DialogTitle id="alert-dialog-title">
-            {"Reset the text?\n"}
-          </DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Reset the text?"}</DialogTitle>
           {/* Set the dialog content */}
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -417,13 +416,18 @@ export default function Meme() {
       {/* Only show image and wiki article if there's an image loaded. */}
       {meme.randomImage && (
         <div className="meme">
-          <canvas
-            id="canvas"
-            className="meme--image"
-            ref={canvas}
-            width={meme.imageWidth}
-            height={meme.imageHeight}
-          />
+          <Tooltip
+            title="Right click me and click Save Image As to download!"
+            placement="bottom"
+          >
+            <canvas
+              id="canvas"
+              className="meme--image"
+              ref={canvas}
+              width={meme.imageWidth}
+              height={meme.imageHeight}
+            />
+          </Tooltip>
           <h2>{wikiContent.wikiArticle}</h2>
           <p className="meme--facts">{wikiContent.wikiText}</p>
         </div>
