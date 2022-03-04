@@ -109,7 +109,7 @@ export default function Meme() {
     const searchArray = allWiki.data.articles;
     // Generate random number for the index in the allWiki array
     let randomNumber = Math.floor(Math.random() * searchArray.length);
-    //console.log(articleText);
+
     let articleTitle = searchArray[randomNumber].name;
     // Wiki Content
     let searchParam = searchArray[randomNumber].search;
@@ -150,8 +150,6 @@ export default function Meme() {
       ...prevWiki,
       wikiText: newText,
     }));
-    //console.log(response.data[searchParam]);
-    //console.log(searchParam);
   };
 
   /**
@@ -189,7 +187,7 @@ export default function Meme() {
 
   /**
    * Creates a canvas to draw and write text over the meme image. Cavnas
-   * is rerendered whenever there is a change to the URL or text chjanges.
+   * is rerendered whenever there is a change to the URL or text changes.
    * Source:
    * https://workshops.hackclub.com/meme_generator/
    */
@@ -262,7 +260,6 @@ export default function Meme() {
    * empty string when the user presses the Reset button.
    */
   function handleAgree() {
-    console.log("I agree!");
     setMeme((prevMeme) => ({
       ...prevMeme,
       topText: "",
@@ -274,13 +271,12 @@ export default function Meme() {
    * Closes the dialog box and sets open state to close.
    */
   function handleDisagree() {
-    console.log("I do not agree.");
     handleClose();
   }
 
   /**
-   * Replaces the hard-coded text on the image with the
-   * text being saved to state for the meme object.
+   * Changes the text on the image and saves it when generating a new
+   * image.
    * @param {event object } event
    */
   function handleChange(event) {
@@ -303,8 +299,7 @@ export default function Meme() {
     minHeight: "30px",
   };
 
-  // Create a new randomImage image when we click Get a new meme image
-  // Only display the text if there's a meme image.
+  // Renders the canvas image, buttons, and Wiki paragraph
   return (
     <main>
       <div className="form">
@@ -365,22 +360,22 @@ export default function Meme() {
           >
             Reset
           </Button>
-          {/* Only show the Download button when there is an image*/}
-          {meme.randomImage && (
-            <Button
-              style={buttonStyle}
-              className="form--download"
-              variant="contained"
-              startIcon={<DownloadIcon />}
-              color="success"
-              onClick={handleDownload}
-            >
-              Download
-            </Button>
-          )}
+          {
+            /* Only show the Download button when there is an image*/
+            meme.randomImage && (
+              <Button
+                style={buttonStyle}
+                className="form--download"
+                variant="contained"
+                startIcon={<DownloadIcon />}
+                color="success"
+                onClick={handleDownload}
+              >
+                Download
+              </Button>
+            )
+          }
         </Stack>
-
-        {/* Button to trigger the opening of the dialog */}
         {/* Alert dialoge when the user clicks on Reset */}
         <Dialog
           open={open}
@@ -388,17 +383,13 @@ export default function Meme() {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          {/* Set the dialog title */}
           <DialogTitle id="alert-dialog-title">{"Reset the text?"}</DialogTitle>
-          {/* Set the dialog content */}
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               You are about to reset the top and bottom text of your meme.
             </DialogContentText>
           </DialogContent>
-          {/* Set the dialog buttona actions */}
           <DialogActions>
-            {/* Set the styles for the Agree and Disagree buttons. */}
             <Button onClick={handleDisagree} variant="outlined" color="error">
               Disagree
             </Button>
@@ -413,25 +404,27 @@ export default function Meme() {
           </DialogActions>
         </Dialog>
       </div>
-      {/* Only show image and wiki article if there's an image loaded. */}
-      {meme.randomImage && (
-        <div className="meme">
-          <Tooltip
-            title="Right click me and click Save Image As to download!"
-            placement="bottom"
-          >
-            <canvas
-              id="canvas"
-              className="meme--image"
-              ref={canvas}
-              width={meme.imageWidth}
-              height={meme.imageHeight}
-            />
-          </Tooltip>
-          <h2>{wikiContent.wikiArticle}</h2>
-          <p className="meme--facts">{wikiContent.wikiText}</p>
-        </div>
-      )}
+      {
+        /* Only show image and Wiki article if there's an image loaded. */
+        meme.randomImage && (
+          <div className="meme">
+            <Tooltip
+              title="Right click me and click Save Image As to download!"
+              placement="bottom"
+            >
+              <canvas
+                id="canvas"
+                className="meme--image"
+                ref={canvas}
+                width={meme.imageWidth}
+                height={meme.imageHeight}
+              />
+            </Tooltip>
+            <h2>{wikiContent.wikiArticle}</h2>
+            <p className="meme--facts">{wikiContent.wikiText}</p>
+          </div>
+        )
+      }
     </main>
   );
 }
