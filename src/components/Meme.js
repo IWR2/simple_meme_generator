@@ -130,21 +130,24 @@ export default function Meme() {
    * When the data comes in, it saves the the search query and response
    * to be displayed as a header and a paragraph element. It uses the random
    * search parameter from the list of searches.
+   * @param {String} searchParam Article to search for.
    */
   const fetchData = async (searchParam) => {
     const response = await axios.get(
       `https://cs361-wiki-app.herokuapp.com/?search=${searchParam}`
     );
+
     let newText = "";
     // Add a newline for each paragraph
-    // Special case for meme and internet_meme which have multiple paragraphs
-    if (searchParam === "meme" || "internet_meme") {
+    // Special case for meme and internet_meme with multiple paragraphs
+    if ("meme" || "internet_meme" in searchParam) {
       // Add double newlines inbetween each paragraph
       newText = formatText(response.data[searchParam]);
     } else {
       // Regular case, Add a new line after every newline to separate paragraphs
       newText = response.data[searchParam].replace(/\n/g, "\n\n");
     }
+
     // Set the wikiText as the newText
     setWikiContent((prevWiki) => ({
       ...prevWiki,
@@ -168,6 +171,7 @@ export default function Meme() {
     newText = newText.replace(/\.(?!\s|$)/g, "\n");
     // Add 2 newlines between each paragraph
     newText = newText.replace(/\n/g, "\n\n");
+
     return newText;
   }
 
@@ -175,9 +179,9 @@ export default function Meme() {
    * Download function to download meme image
    */
   function handleDownload() {
-    var canvas = document.getElementById("canvas");
-    var url = canvas.toDataURL("image/png");
-    var link = document.createElement("a");
+    let canvas = document.getElementById("canvas");
+    let url = canvas.toDataURL("image/png");
+    let link = document.createElement("a");
     // Name the file meme.png
     link.download = "meme.png";
     link.href = url;
@@ -277,7 +281,7 @@ export default function Meme() {
   /**
    * Changes the text on the image and saves it when generating a new
    * image.
-   * @param {event object } event
+   * @param {event object } event Top or bottom text field.
    */
   function handleChange(event) {
     // Get the name and value properties from the event target.
