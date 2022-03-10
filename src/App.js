@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 
 /**
  * Renders each component.
- * @returns None
  */
 export default function App() {
   return (

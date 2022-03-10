@@ -3,7 +3,6 @@ import Tooltip from "@mui/material/Tooltip";
 
 /**
  * Renders the header with the logo and title.
- * @returns
  */
 export default function Header() {
   /**
