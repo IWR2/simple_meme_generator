@@ -74,24 +74,18 @@ export default function Meme() {
    * Changes the meme randomImage prop source to a random image.
    */
   function getMemeImage() {
-    // Generate random number for the index in the allMemes array
     const randomNumberMemes = Math.floor(Math.random() * allMemes.length);
 
-    // Random meme Content
     const url = allMemes[randomNumberMemes].url;
     const width = allMemes[randomNumberMemes].width;
     const height = allMemes[randomNumberMemes].height;
 
     // Set Image Canvas to use the image url
     const memeImage = new Image();
-    // Enable Cross-Origin anonymous for downloading
     memeImage.crossOrigin = "Anonymous";
-    // Store the url
     memeImage.src = url;
-    // Set the meme iamge
     memeImage.onload = () => setImage(memeImage);
 
-    // Allow change to randomImage url, width or height independently
     setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage: url,
@@ -105,13 +99,11 @@ export default function Meme() {
    * fetchData to make a get request to my teammate's microservice.
    */
   function getWikiArticle() {
-    // From the data.js get the articles array
     const searchArray = allWiki.data.articles;
-    // Generate random number for the index in the allWiki array
+
     let randomNumber = Math.floor(Math.random() * searchArray.length);
 
     let articleTitle = searchArray[randomNumber].name;
-    // Wiki Content
     let searchParam = searchArray[randomNumber].search;
 
     // Only set Wiki content for article and search
@@ -120,8 +112,7 @@ export default function Meme() {
       wikiArticle: articleTitle,
     }));
 
-    // Send a get request to teammate's microservice with searchParam and
-    // set the wikiText as the response value
+    // Send a get request to teammate's microservice
     fetchData(searchParam);
   }
 
@@ -139,12 +130,10 @@ export default function Meme() {
 
     let newText = "";
     // Add a newline for each paragraph
-    // Special case for meme and internet_meme with multiple paragraphs
     if ("meme" || "internet_meme" in searchParam) {
-      // Add double newlines inbetween each paragraph
+      // Add double newlines in between each paragraph
       newText = formatText(response.data[searchParam]);
     } else {
-      // Regular case, Add a new line after every newline to separate paragraphs
       newText = response.data[searchParam].replace(/\n/g, "\n\n");
     }
 
@@ -182,6 +171,7 @@ export default function Meme() {
     let canvas = document.getElementById("canvas");
     let url = canvas.toDataURL("image/png");
     let link = document.createElement("a");
+
     // Name the file meme.png
     link.download = "meme.png";
     link.href = url;
@@ -197,23 +187,22 @@ export default function Meme() {
    */
   useEffect(
     function () {
-      // Fetch the response and parse it into javascript, and set that object
-      // into the meme array.
-      // If we have both image and canvas,
       if (image && canvas) {
-        // Get the 2d content
         const ctx = canvas.current.getContext("2d");
+
         // Draw the image
         ctx.drawImage(image, 0, 0);
         ctx.fillStyle = "white";
         ctx.strokeStyle = "black";
         ctx.textAlign = "center";
+
         // Set and style the font according to the size of the image's width
         let fontSize = meme.imageWidth * 0.1;
         ctx.font = `${fontSize}px Impact`;
         ctx.lineWidth = fontSize / 20;
 
         ctx.textAlign = "center";
+
         // Set position for Top text
         ctx.textBaseline = "bottom";
         ctx.fillText(
