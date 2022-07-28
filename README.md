@@ -14,7 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## How to Install
 To download this app onto your machine open your project directory and run:
 
-### `git clone https://github.com/IWR2/not_another_meme_generator.git`
+### `git clone https://github.com/IWR2/simple_meme_generator.git`
 
 To download this app's dependencies open your project directory and run:
 
